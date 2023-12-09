@@ -2,15 +2,14 @@ from fastapi import APIRouter, HTTPException, Response, status
 from schemas.session import Session
 from services.session_service import SessionRepository
 from fastapi.responses import JSONResponse
-from services.user_session_service import UserSessionRepository
 from schemas.user_session import UserSession
 
 route_session = APIRouter(prefix='/session', tags=['Sessao'])
 
-
 @route_session.post('/create')
 async def create(session_data: Session):
     try:
+        await SessionRepository.create_session(session_data)
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=await SessionRepository.create(session_data))
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
