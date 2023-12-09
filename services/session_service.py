@@ -2,6 +2,7 @@ from schemas.session import Session
 from config import db
 from sqlalchemy import create_engine,text
 from schemas.session import Session
+from schemas.user_session import UserSession
 
 class SessionRepository:
 
@@ -28,3 +29,14 @@ class SessionRepository:
                 usuarios = await session.execute(query, {"id_sessao": id_sessao})
                 usuarios = usuarios.fetchall()
                 return usuarios
+
+    @staticmethod
+    async def enter_session(user_session_data: UserSession):
+        idusuario = user_session_data.idusuario
+        idsessao = user_session_data.idsessao
+        async with db as session:
+            async with session.begin():
+                query = text(f'INSERT INTO usuario_sessao(idusuario, idsessao) VALUES (:idusuario,:idsessao);')
+                await session.execute(query, {"idusuario": idusuario,
+                                              "idsessao": idsessao})
+                await session.commit()
