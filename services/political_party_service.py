@@ -14,5 +14,9 @@ class PoliticalPartyRepository:
         async with db as session:
             async with session.begin():
                 query = text(f'INSERT INTO partido(nome_partido, sigla_partido, deferimento, presidente_nacional, numero_legenda) VALUES (:nome_partido, :sigla_partido, :deferimento, :presidente_nacional, :numero_legenda);')
-                await session.execute(query, {"nome_partido": nome_partido, "sigla_partido": sigla_partido, "deferimento": deferimento, "presidente_nacional": presidente_nacional, "numero_legenda": numero_legenda})
+                await session.execute(query, {"nome_partido": nome_partido,
+                                              "sigla_partido": sigla_partido,
+                                              "deferimento": deferimento,
+                                              "presidente_nacional": presidente_nacional,
+                                              "numero_legenda": numero_legenda})
                 await session.commit()

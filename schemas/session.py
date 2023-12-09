@@ -3,8 +3,10 @@ from datetime import datetime
 
 class Session(BaseModel):
 
-    idsessao: int
+    idsessao: int | None = None
     nome_sessao: str
-    idusuario: int
+    data_agendamento_sessao: datetime
     data_sessao: datetime
-    status_sessao: bool
+    status_sessao: str
+    hora_termino_sessao: datetime | None = None
+

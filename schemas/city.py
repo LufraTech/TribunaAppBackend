@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class City(BaseModel):
-    idcidade: int | None = None
+
     nome_cidade: str
     idestado: int | None = None
 

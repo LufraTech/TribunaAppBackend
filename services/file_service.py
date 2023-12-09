@@ -11,6 +11,7 @@ class FileRepository:
         async with db as session:
             async with session.begin():
                 query = text(f'INSERT INTO arquivo(nome_arquivo, idsessao) VALUES (:nome_arquivo, :idsessao)')
-                await session.execute(query, {"nome_arquivo": nome_arquivo, "idsessao": idsessao})
+                await session.execute(query, {"nome_arquivo": nome_arquivo,
+                                              "idsessao": idsessao})
                 await session.commit()
 

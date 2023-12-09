@@ -2,32 +2,42 @@ from schemas.user import User
 from config import db
 from sqlalchemy import create_engine, text
 from datetime import datetime
-from passlib.context import  CryptContext
+from passlib.context import CryptContext
 
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
 class UserRepository:
 
     @staticmethod
     async def create_user(user_data: User):
-        nome_usuario = user_data.nome_usuario
+        primeiro_nome = user_data.primeiro_nome
+        sobrenome = user_data.sobrenome
         senha_usuario = user_data.senha_usuario = bcrypt_context.hash(user_data.senha_usuario)
-        idpartido = user_data.idpartido
         email_usuario = user_data.email_usuario
+        foto_perfil = user_data.foto_perfil
+        idpartido = user_data.idpartido
+        usuario_presidente = user_data.usuario_presidente
+        usuario_vereador = user_data.usuario_vereador
         usuario_administrador = user_data.usuario_administrador
         idcamara = user_data.idcamara
-        foto_perfil = user_data.foto_perfil
-        usuario_presidente = user_data.usuario_presidente
-        vereador = user_data.vereador
+        status = user_data.status
 
         async with db as session:
             async with session.begin():
                 query = text(
-                    f'INSERT INTO usuario(nome_usuario, senha_usuario, idpartido, email_usuario, usuario_administrador, idcamara,foto_perfil,usuario_presidente,vereador) VALUES (:nome_usuario, :senha_usuario, :idpartido, :email_usuario, :usuario_administrador, :idcamara,:foto_perfil,:usuario_presidente,:vereador);')
-                await session.execute(query, {"nome_usuario": nome_usuario, "senha_usuario": senha_usuario,
-                                              "idpartido": idpartido, "email_usuario": email_usuario,
-                                              "usuario_administrador": usuario_administrador, "idcamara": idcamara,
-                                              "foto_perfil": foto_perfil, "usuario_presidente": usuario_presidente,
-                                              "vereador": vereador})
+                    f'INSERT INTO usuario(primeiro_nome,sobrenome, senha_usuario, email_usuario,foto_perfil, idpartido, usuario_vereador, usuario_presidente, usuario_administrador, idcamara,status) VALUES (:primeiro_nome, :sobrenome, :senha_usuario, :email_usuario,:foto_perfil, :idpartido, :usuario_presidente, :usuario_vereador, :usuario_administrador, :idcamara, :status);')
+                await session.execute(query, {"primeiro_nome": primeiro_nome,
+                                              "sobrenome": sobrenome,
+                                              "senha_usuario": senha_usuario,
+                                              "email_usuario": email_usuario,
+                                              "foto_perfil": foto_perfil,
+                                              "idpartido": idpartido,
+                                              "usuario_presidente": usuario_presidente,
+                                              "usuario_vereador": usuario_vereador,
+                                              "usuario_administrador": usuario_administrador,
+                                              "idcamara": idcamara,
+                                              "status": status})
                 await session.commit()
 
     @staticmethod

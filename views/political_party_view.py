@@ -16,7 +16,6 @@ async def create_user(political_data: PoliticalParty):
     #     return JSONResponse(content=msg, status_code=409)
 
     try:
-
         await PoliticalPartyRepository.create_political_party(political_data)
 
         msg = {
