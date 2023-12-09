@@ -2,6 +2,7 @@ from pydantic import BaseModel
 
 
 class CreateUserRequest(BaseModel):
+
     email_usuario: str
     senha_usuario: str
 

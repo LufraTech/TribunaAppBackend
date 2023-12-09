@@ -7,6 +7,7 @@ class StateRepository:
     @staticmethod
     async def create_state(state_data:State):
         nome_estado = state_data.nome_estado
+
         async with db as session:
             async with session.begin():
 

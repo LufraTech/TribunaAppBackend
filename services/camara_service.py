@@ -21,7 +21,10 @@ class CamaraRepository:
         async with db as session:
             async with session.begin():
                 query = text(f'INSERT INTO camara(nome_camara, idcidade,foto_camara, cep) VALUES (:nome_camara, :idcidade, :foto_camara, :cep);')
-                await session.execute(query, {'nome_camara': nome_camara, 'idcidade': idcidade, 'foto_camara': foto_camara, 'cep': cep})
+                await session.execute(query, {'nome_camara': nome_camara,
+                                              'idcidade': idcidade,
+                                              'foto_camara': foto_camara,
+                                              'cep': cep })
                 await session.commit()
     @staticmethod
     async def update_camara( nome_camara: str, idcamara: int):

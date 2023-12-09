@@ -11,7 +11,8 @@ class CityRepository:
         async with db as session:
             async with session.begin():
                 query = text(f'INSERT INTO cidade(nome_cidade,idestado) VALUES (:nome_cidade,:idestado)')
-                await session.execute(query, {"nome_cidade": nome_cidade, "idestado": idestado})
+                await session.execute(query, {"nome_cidade": nome_cidade,
+                                              "idestado": idestado})
                 await session.commit()
 
     @staticmethod

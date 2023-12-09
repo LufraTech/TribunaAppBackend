@@ -20,13 +20,15 @@ async def create_user(user_data: User):
 
         msg = {
             "message": "Usuario criado com sucesso",
-            "nome_usuario": user_data.nome_usuario,
+            "nome_usuario": f"{user_data.primeiro_nome} {user_data.sobrenome}",
             "email_usuario": user_data.email_usuario,
+            "foto_perfil": user_data.foto_perfil,
             "idpartido": user_data.idpartido,
-            "idcamara": user_data.idcamara,
-            "usuario_administrador": user_data.usuario_administrador,
             "usuario_presidente": user_data.usuario_presidente,
-            "verador": user_data.vereador
+            "usuario_vereador": user_data.usuario_vereador,
+            "usuario_administrador": user_data.usuario_administrador,
+            "idcamara": user_data.idcamara,
+            "status": user_data.status
             }
         return JSONResponse(status_code=status.HTTP_201_CREATED, content=msg)
 
